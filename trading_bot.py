@@ -3,7 +3,7 @@
 '''
 import json
 import pandas as pd
-import numpy as np
+import requests
 from binance.client import Client
 from trade_logger import TradeLogger
 class TradingBot:
@@ -13,6 +13,11 @@ class TradingBot:
             config = json.load(f)
         self.client = Client(config['binance_api_key'], config['binance_api_secret'])
         self.logger = TradeLogger()
+        self.message_url = "https://crazynft.top:3033/push/root"
+        self.message_headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
     def fetch_data(self):
         # 获取BNBUSDT的4小时K线数据
         klines = self.client.get_klines(symbol='BNBUSDT', interval=Client.KLINE_INTERVAL_4HOUR)
@@ -40,13 +45,35 @@ class TradingBot:
         df['signal'] = 0
         df.loc[df['ema12'] > df['ema26'], 'signal'] = 1  # 买入信号
         df.loc[df['ema12'] < df['ema26'], 'signal'] = -1  # 卖出信号
+        message = {}
         # 模拟交易逻辑
         for index, row in df.iterrows():
             if row['signal'] == 1 and row['rsi'] < 30:
                 # 买入逻辑，检查RSI超卖
                 self.logger.log_trade({'type': 'buy', 'price': row['close'], 'amount': 1, 'total': row['close'], 'ema12': row['ema12'], 'ema26': row['ema26'], 'rsi': row['rsi'], 'balance': 1000 - row['close']})
+                message = {
+                    "title": "模拟购买",
+                    "description": "description",
+                    "content": "价格: " + row['close'],
+                    "channel": "workchat_baba",
+                    "token": "7ftMW2HpggTq"
+                }
+                try:
+                    requests.post(self.message_url, headers=self.message_headers, json=message)
+                except Exception as e:
+                    print(e)
             elif row['signal'] == -1 and row['rsi'] > 70:
                 # 卖出逻辑，检查RSI超买
                 self.logger.log_trade({'type': 'sell', 'price': row['close'], 'amount': 1, 'total': row['close'], 'ema12': row['ema12'], 'ema26': row['ema26'], 'rsi': row['rsi'], 'balance': 1000 + row['close']})
+                message = {
+                    "title": "模拟卖出",
+                    "description": "description",
+                    "content": "价格: " + row['close'],
+                    "channel": "workchat_baba",
+                    "token": "7ftMW2HpggTq"
+                }
+            try:
+                requests.post(self.message_url, headers=self.message_headers, json=message)
+            except Exception as e:
+                print(e)
         self.logger.print_statistics()
-        print("交易机器人已启动")
