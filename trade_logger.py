@@ -28,6 +28,7 @@ class TradeLogger:
                 trade['rsi'],
                 trade['balance']
             ])
+
     def print_statistics(self):
         # 从CSV读取数据并打印交易统计信息
         with open(self.file_name, mode='r') as file:
@@ -35,7 +36,7 @@ class TradeLogger:
             header = next(reader)  # 跳过头部
             trades = list(reader)
             if not trades:
-                print("No trades to analyze.")
+                print(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + " - No trades to analyze.")
                 return
             total_profit = sum(float(trade[4]) for trade in trades)
             total_trades = len(trades)

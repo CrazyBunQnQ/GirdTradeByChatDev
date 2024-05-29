@@ -9,3 +9,4 @@ ChatChainConfig.json
 *.prompt
 *.ipynb
 *.csv
+__pycache__
