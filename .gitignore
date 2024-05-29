@@ -2,3 +2,8 @@
 manual.md
 *~
 /.idea/
+meta.txt
+PhaseConfig.json
+RoleConfig.json
+ChatChainConfig.json
+*.prompt
