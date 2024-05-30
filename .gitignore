@@ -6,7 +6,6 @@ meta.txt
 PhaseConfig.json
 RoleConfig.json
 ChatChainConfig.json
-*.prompt
 *.ipynb
 *.csv
 __pycache__
