@@ -1,64 +1,71 @@
-下面是一个为 CrazyCodeLab Binance 自动交易软件准备的使用手册。这个手册旨在详细介绍软件的主要功能、环境安装步骤以及如何使用该软件。
+以下是一个为 CrazyCodeLab 设计的 README.md 文件，这个文件将帮助用户理解和使用你们为 BNBUSDT 自动交易系统开发的 Python 程序。
 
 ```markdown
-# CrazyCodeLab Binance Auto-Trading Bot
+# CrazyCodeLab Binance Auto-Trader
 
-自动交易 Binance 平台上的 BNBUSDT 对，依据指数移动平均线和相对强弱指数来生成交易信号。
+该程序是一个基于 Python 的自动交易系统，使用 Binance API 对 BNBUSDT 进行交易模拟。系统的主要目标是通过技术分析，例如指数移动平均线和相对强弱指数，来识别交易机会。
 
-## 功能概述
+## 主要功能
 
-- **自动交易**：使用 Binance API 完成自动买卖操作。
-- **市场数据监测**：实时监测市场数据，根据设定的策略进行交易。
-- **风险管理**：通过设置交易参数（如止损、止盈）来管理风险。
-- **日志记录**：所有交易动作和重要信息都会记录在日志文件中，便于回溯和分析。
+- **获取K线数据**：自动从 Binance 获取 BNBUSDT 的 4 小时 K 线数据。
+- **技术指标计算**：计算指数移动平均线 (EMA) 并使用这些数据来发现买卖信号。
+- **信号验证**：利用相对强弱指数 (RSI) 验证买卖信号的可靠性。
+- **模拟交易**：在识别到有效的买卖信号时执行模拟交易，并记录结果。
+- **统计分析**：跟踪和输出账户余额、交易次数和盈亏情况。
 
-## 快速安装
+## 安装说明
 
-首先，确保您的系统已安装 Python 3.7 或更高版本。然后，按照以下步骤设置您的交易环境：
+### 环境需求
 
-### 1. 安装 Python 依赖
+- Python 3.8 或更高版本
+- pip 或 conda
 
-在终端中运行以下命令来安装所需的 Python 库：
+### 安装依赖
+
+本系统依赖于以下 Python 库：
+
+- `pandas`：用于数据处理和分析。
+- `numpy`：用于数值计算。
+- `requests`：用于 HTTP 请求处理。
+
+您可以使用以下命令来安装所有必需的依赖：
 
 ```bash
-pip install requests pandas
+pip install pandas numpy requests
 ```
 
-### 2. 配置 API 密钥
+或者使用 conda：
 
-您需要在 Binance 平台上生成 API 密钥和密钥秘密，然后将它们添加到您的环境变量中：
+```bash
+conda install pandas numpy requests
+```
 
-- **Windows 用户**:
-  - 打开命令行，输入：
-    ```bash
-    set BINANCE_API_KEY=您的API键
-    set BINANCE_API_SECRET=您的API密钥秘密
-    ```
-- **Unix/Mac 用户**:
-  - 打开终端，输入：
-    ```bash
-    export BINANCE_API_KEY=您的API键
-    export BINANCE_API_SECRET=您的API密钥秘密
-    ```
+### API 密钥配置
 
-## 使用说明
+确保您有有效的 Binance `api_key` 和 `api_secret`。这些密钥需要在程序的 `binance_api.py` 模块中正确设置。
 
-### 启动交易机器人
+## 使用方法
 
-运行主脚本开始自动交易：
+运行程序非常简单，只需在您的命令行中执行以下命令：
 
 ```bash
 python main.py
 ```
 
-软件将自动开始监测市场，并根据预定的交易策略执行买卖操作。所有相关活动和输出信息将通过日志系统记录并显示在控制台上。
+此命令将启动交易系统，系统会自动进行交易模拟并显示交易统计信息。
 
-## 📖 文档
+## 开发者信息
 
-- **配置指南**：详细说明如何配置和优化您的交易策略。
-- **常见问题解答 (FAQ)**：提供关于使用本软件和解决常见问题的指南。
+CrazyCodeLab 是一家致力于通过编程创造财富的创新软件公司。我们的团队包括经验丰富的开发人员和金融分析师，专注于开发高效、可靠的自动化交易解决方案。
 
-感谢您选择 CrazyCodeLab 的产品，希望您交易顺利！
+### 联系方式
+
+如需进一步的帮助或有关合作的查询，请通过以下方式联系我们：
+
+- **邮箱**：support@crazyCodeLab.com
+- **网站**：[www.crazyCodeLab.com](http://www.crazyCodeLab.com)
+
+希望您能喜欢我们的产品，并通过它实现财务自由！
 ```
 
-请确保遵循安装和配置指南正确设置环境，并理解交易策略以优化交易结果。
+这份 README 提供了软件的概述、安装指南、功能描述以及如何运行软件的详细说明，确保用户能够有效地使用你们的系统。
